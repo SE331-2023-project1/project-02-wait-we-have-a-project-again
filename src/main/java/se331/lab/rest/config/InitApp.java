@@ -20,7 +20,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     @Override
     @Transactional
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent){
-        Advisor advisor1,advisor2;
+        Advisor advisor1,advisor2,advisor3,advisor4,advisor5,advisor6;
         advisor1 = advisorRepository.save(Advisor
                 .builder()
                 .name("Somsak")
@@ -34,6 +34,33 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .department("Business Administration")
                 .position("Researcher")
                 .build());
+        advisor3 = advisorRepository.save(Advisor.builder()
+                .name("John")
+                .surname("Doe")
+                .department("Mathematics")
+                .position("Professor")
+                .build());
+
+        advisor4 = advisorRepository.save(Advisor.builder()
+                .name("Alice")
+                .surname("Johnson")
+                .department("History")
+                .position("Associate Professor")
+                .build());
+
+        advisor5 = advisorRepository.save(Advisor.builder()
+                .name("Ella")
+                .surname("Smith")
+                .department("Physics")
+                .position("Assistant Professor")
+                .build());
+        advisor6 = advisorRepository.save(Advisor.builder()
+                .name("David")
+                .surname("Lee")
+                .department("Computer Science")
+                .position("Professor")
+                .build());
+
         Student student;
         student = studentRepository.save(Student.builder()
                 .studentID("S001")
@@ -71,6 +98,77 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         student.setAdvisor(advisor2);
         advisor2.getStudentList().add(student);
 
+        student = studentRepository.save(Student.builder()
+                .studentID("S005")
+                .name("Grace")
+                .surname("Adams")
+                .department("English")
+                .build());
+        student.setAdvisor(advisor3);
+        advisor3.getStudentList().add(student);
+
+        student = studentRepository.save(Student.builder()
+                .studentID("S006")
+                .name("Henry")
+                .surname("Wilson")
+                .department("Engineering")
+                .build());
+        student.setAdvisor(advisor3);
+        advisor3.getStudentList().add(student);
+
+        student = studentRepository.save(Student.builder()
+                .studentID("S007")
+                .name("Isabella")
+                .surname("Harris")
+                .department("Geology")
+                .build());
+        student.setAdvisor(advisor4);
+        advisor4.getStudentList().add(student);
+
+        student = studentRepository.save(Student.builder()
+                .studentID("S008")
+                .name("Jane")
+                .surname("Lee")
+                .department("Psychology")
+                .build());
+        student.setAdvisor(advisor4);
+        advisor4.getStudentList().add(student);
+
+        student = studentRepository.save(Student.builder()
+                .studentID("S009")
+                .name("Jackson")
+                .surname("Parker")
+                .department("Computer Science")
+                .build());
+        student.setAdvisor(advisor5);
+        advisor5.getStudentList().add(student);
+
+        student = studentRepository.save(Student.builder()
+                .studentID("S010")
+                .name("Sandra")
+                .surname("Bullock")
+                .department("Biology")
+                .build());
+        student.setAdvisor(advisor5);
+        advisor5.getStudentList().add(student);
+
+        student = studentRepository.save(Student.builder()
+                .studentID("S011")
+                .name("Denzel")
+                .surname("Washington")
+                .department("Mathematics")
+                .build());
+        student.setAdvisor(advisor6);
+        advisor6.getStudentList().add(student);
+
+        student = studentRepository.save(Student.builder()
+                .studentID("S012")
+                .name("Jennifer")
+                .surname("Kim")
+                .department("History")
+                .build());
+        student.setAdvisor(advisor6);
+        advisor6.getStudentList().add(student);
 
 
 
