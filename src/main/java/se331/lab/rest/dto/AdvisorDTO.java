@@ -9,6 +9,8 @@ import se331.lab.rest.entity.Student;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -18,7 +20,7 @@ public class AdvisorDTO {
     String name;
     String surname;
     String position;
-    String image;
+    List<String> image;
     String department;
     List<OwnStudentDTO> studentList = new ArrayList<>();
 }

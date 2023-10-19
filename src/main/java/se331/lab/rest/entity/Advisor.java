@@ -19,7 +19,8 @@ public class Advisor {
     String name;
     String surname;
     String position;
-    String image;
+    @ElementCollection
+    List<String> image;
     String department;
     //adviser information, including academic position, name, surname, profile images, and department.
     @OneToMany

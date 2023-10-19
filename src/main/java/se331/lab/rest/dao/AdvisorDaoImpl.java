@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 import se331.lab.rest.entity.Advisor;
 import se331.lab.rest.repository.AdvisorRepository;
 
+import java.util.Optional;
+
 @Repository
 @RequiredArgsConstructor
 public class AdvisorDaoImpl implements AdvisorDao{
@@ -30,6 +32,10 @@ public class AdvisorDaoImpl implements AdvisorDao{
     @Override
     public Advisor save(Advisor advisor){
         return advisorRepository.save(advisor);
+    }
+    @Override
+    public Optional<Advisor> findById(Long id){
+        return advisorRepository.findById(id);
     }
 
 }
