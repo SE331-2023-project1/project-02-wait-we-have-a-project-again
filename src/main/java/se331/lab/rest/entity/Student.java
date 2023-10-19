@@ -1,9 +1,6 @@
 package se331.lab.rest.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Data
@@ -22,4 +19,6 @@ public class Student {
     String image;
     String department;
     //student ID, name, surname, profile image, and department.
+    @ManyToOne
+    Advisor advisor;
 }

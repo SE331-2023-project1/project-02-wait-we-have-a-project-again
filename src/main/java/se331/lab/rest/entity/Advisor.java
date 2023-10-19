@@ -1,10 +1,10 @@
 package se331.lab.rest.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Builder
@@ -22,5 +22,8 @@ public class Advisor {
     String image;
     String department;
     //adviser information, including academic position, name, surname, profile images, and department.
+    @OneToMany
+    @Builder.Default
+    List<Student> studentList = new ArrayList<>();
 
 }
