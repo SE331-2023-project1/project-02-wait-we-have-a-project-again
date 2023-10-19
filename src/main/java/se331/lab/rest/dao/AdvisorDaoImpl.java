@@ -10,7 +10,6 @@ import se331.lab.rest.repository.AdvisorRepository;
 
 @Repository
 @RequiredArgsConstructor
-@Profile("db")
 public class AdvisorDaoImpl implements AdvisorDao{
     final AdvisorRepository advisorRepository;
     @Override
