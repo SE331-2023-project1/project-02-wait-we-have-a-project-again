@@ -4,6 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import se331.lab.rest.entity.Student;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Builder
@@ -16,5 +20,5 @@ public class AdvisorDTO {
     String position;
     String image;
     String department;
-    StudentDTO student;
+    List<OwnStudentDTO> studentList = new ArrayList<>();
 }
