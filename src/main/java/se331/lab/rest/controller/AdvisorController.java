@@ -6,9 +6,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import se331.lab.rest.entity.Advisor;
 import se331.lab.rest.service.AdvisorService;
@@ -35,5 +33,11 @@ public class AdvisorController {
         }else{
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "the given id is not found");
         }
+    }
+
+    @PostMapping("/advisors")
+    public ResponseEntity<?> addAdvisor(@RequestBody Advisor advisor){
+        Advisor output = advisorService.save(advisor);
+        return ResponseEntity.ok(LabMapper.INSTANCE.getAdvisorDto(output));
     }
 }

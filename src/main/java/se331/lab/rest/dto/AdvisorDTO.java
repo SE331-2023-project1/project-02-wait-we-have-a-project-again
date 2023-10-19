@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -14,7 +16,7 @@ public class AdvisorDTO {
     String name;
     String surname;
     String position;
-    String image;
+    List<String> image;
     String department;
     StudentDTO student;
 }
