@@ -3,6 +3,8 @@ package se331.lab.rest.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Data
 @Builder
 @Entity
@@ -16,9 +18,12 @@ public class Student {
     String studentID;
     String name;
     String surname;
-    String image;
+
     String department;
     //student ID, name, surname, profile image, and department.
     @ManyToOne
     Advisor advisor;
+
+    @ElementCollection
+    List<String> image;
 }

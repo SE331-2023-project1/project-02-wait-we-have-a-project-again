@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import se331.lab.rest.entity.Advisor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -15,7 +17,7 @@ public class StudentDTO {
     String studentID;
     String name;
     String surname;
-    String image;
     String department;
     OwnsAdvisorDTO advisor;
+    List<String> image;
 }
