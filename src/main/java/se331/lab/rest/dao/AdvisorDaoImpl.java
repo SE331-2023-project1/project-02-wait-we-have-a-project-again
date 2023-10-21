@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import se331.lab.rest.entity.Advisor;
 import se331.lab.rest.repository.AdvisorRepository;
@@ -26,7 +27,7 @@ public class AdvisorDaoImpl implements AdvisorDao{
         return advisorRepository.findAll(PageRequest.of(page, pageSize));
     }
     @Override
-    public Advisor getAdvisor(Long id){
+    public Advisor getAdvisorById(Long id){
         return advisorRepository.findById(id).orElse(null);
     }
     @Override
@@ -36,6 +37,11 @@ public class AdvisorDaoImpl implements AdvisorDao{
     @Override
     public Optional<Advisor> findById(Long id){
         return advisorRepository.findById(id);
+    }
+
+    @Override
+    public Page<Advisor> getAdvisor(String name, Pageable page){
+        return advisorRepository.findByNameContainingIgnoreCase(name, page);
     }
 
 }
