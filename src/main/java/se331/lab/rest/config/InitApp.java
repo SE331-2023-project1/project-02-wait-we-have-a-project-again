@@ -170,6 +170,59 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         student.setAdvisor(advisor6);
         advisor6.getStudentList().add(student);
 
+        student = studentRepository.save(Student.builder()
+                .studentID("S013")
+                .name("Mika")
+                .surname("Donald")
+                .department("Social")
+                .build());
+        student.setAdvisor(advisor1);
+        advisor1.getStudentList().add(student);
+
+        student = studentRepository.save(Student.builder()
+                .studentID("S014")
+                .name("Silver")
+                .surname("Morgan")
+                .department("Geology")
+                .build());
+        student.setAdvisor(advisor2);
+        advisor2.getStudentList().add(student);
+
+        student = studentRepository.save(Student.builder()
+                .studentID("S015")
+                .name("Casper")
+                .surname("Miller")
+                .department("Music")
+                .build());
+        student.setAdvisor(advisor3);
+        advisor3.getStudentList().add(student);
+
+        student = studentRepository.save(Student.builder()
+                .studentID("S016")
+                .name("Sparkle")
+                .surname("Evans")
+                .department("Biology")
+                .build());
+        student.setAdvisor(advisor4);
+        advisor4.getStudentList().add(student);
+
+        student = studentRepository.save(Student.builder()
+                .studentID("S017")
+                .name("Rose")
+                .surname("Lopez")
+                .department("Biology")
+                .build());
+        student.setAdvisor(advisor5);
+        advisor5.getStudentList().add(student);
+
+        student = studentRepository.save(Student.builder()
+                .studentID("S018")
+                .name("Sparkle")
+                .surname("Evans")
+                .department("Biology")
+                .build());
+        student.setAdvisor(advisor6);
+        advisor6.getStudentList().add(student);
 
 
 
