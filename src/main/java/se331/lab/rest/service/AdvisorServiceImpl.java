@@ -22,7 +22,7 @@ public class AdvisorServiceImpl implements AdvisorService {
     }
     @Override
     public Advisor getEvent(Long id){
-        return advisorDao.getAdvisor(id);
+        return advisorDao.getAdvisorById(id);
     }
 
     @Override
@@ -34,5 +34,10 @@ public class AdvisorServiceImpl implements AdvisorService {
     @Transactional
     public Advisor save(Advisor advisor){
         return advisorDao.save(advisor);
+    }
+
+    @Override
+    public  Page<Advisor> getAdvisor(String name, Pageable page){
+        return  advisorDao.getAdvisor(name, page);
     }
 }
