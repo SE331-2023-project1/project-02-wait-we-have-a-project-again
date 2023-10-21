@@ -10,8 +10,8 @@ import java.util.List;
 public interface AdvisorRepository extends JpaRepository<Advisor, Long> {
     List<Advisor> findAll();
 
-    Page<Advisor> findByNameContainingIgnoreCase
-            (String name, Pageable pageable);
+    Page<Advisor> findByNameContainingIgnoreCaseOrAdvisorID
+            (String name,String advisorID, Pageable pageable);
 
 
 }

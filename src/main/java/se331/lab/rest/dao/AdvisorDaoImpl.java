@@ -41,7 +41,7 @@ public class AdvisorDaoImpl implements AdvisorDao{
 
     @Override
     public Page<Advisor> getAdvisor(String name, Pageable page){
-        return advisorRepository.findByNameContainingIgnoreCase(name, page);
+        return advisorRepository.findByNameContainingIgnoreCaseOrAdvisorID(name, name ,page);
     }
 
 }
