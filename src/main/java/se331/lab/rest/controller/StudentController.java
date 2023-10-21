@@ -51,7 +51,7 @@ public class StudentController {
     }
     @PutMapping("/students/{id}")
     public ResponseEntity<?> updateStudent(@PathVariable("id") Long id, @RequestBody Student updateStudent) {
-        Student existingStudent = studentService.getStudent(id);
+        Student existingStudent = studentService.getStudentById(id);
         if (existingStudent != null) {
             if (updateStudent.getName() != null) {
                 existingStudent.setName(updateStudent.getName());
