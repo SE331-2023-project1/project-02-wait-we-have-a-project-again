@@ -25,7 +25,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .builder()
                 .name("Somsak")
                 .surname("Smith")
-                .department("English language teaching")
+                .department("English")
                 .position("Lecturer")
                 .build());
         advisor2 = advisorRepository.save(Advisor.builder()
@@ -35,8 +35,8 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .position("Researcher")
                 .build());
         advisor3 = advisorRepository.save(Advisor.builder()
-                .name("John")
-                .surname("Doe")
+                .name("Astor   ")
+                .surname("Hawk")
                 .department("Mathematics")
                 .position("Professor")
                 .build());
@@ -49,8 +49,8 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .build());
 
         advisor5 = advisorRepository.save(Advisor.builder()
-                .name("Ella")
-                .surname("Smith")
+                .name("Kathy")
+                .surname("Merton")
                 .department("Physics")
                 .position("Assistant Professor")
                 .build());
@@ -64,8 +64,8 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         Student student;
         student = studentRepository.save(Student.builder()
                 .studentID("S001")
-                .name("John")
-                .surname("Doe")
+                .name("Daisy")
+                .surname("Walsh")
                 .department("Computer Science")
                 .build());
         student.setAdvisor(advisor1);
@@ -73,8 +73,8 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
 
         student = studentRepository.save(Student.builder()
                 .studentID("S002")
-                .name("Jane")
-                .surname("Smith")
+                .name("Jerry")
+                .surname("Perry")
                 .department("Mathematics")
                 .build());
         student.setAdvisor(advisor1);
@@ -82,8 +82,8 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
 
         student = studentRepository.save(Student.builder()
                 .studentID("S003")
-                .name("Alice")
-                .surname("Johnson")
+                .name("Jerry")
+                .surname("Perry")
                 .department("Physics")
                 .build());
         student.setAdvisor(advisor2);
@@ -154,8 +154,8 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
 
         student = studentRepository.save(Student.builder()
                 .studentID("S011")
-                .name("Denzel")
-                .surname("Washington")
+                .name("Scooby")
+                .surname("Doo")
                 .department("Mathematics")
                 .build());
         student.setAdvisor(advisor6);
@@ -210,22 +210,73 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .studentID("S017")
                 .name("Rose")
                 .surname("Lopez")
-                .department("Biology")
+                .department("Chemistry")
                 .build());
         student.setAdvisor(advisor5);
         advisor5.getStudentList().add(student);
 
         student = studentRepository.save(Student.builder()
                 .studentID("S018")
-                .name("Sparkle")
-                .surname("Evans")
+                .name("Mickey")
+                .surname("Mouse")
                 .department("Biology")
                 .build());
         student.setAdvisor(advisor6);
         advisor6.getStudentList().add(student);
 
+        student = studentRepository.save(Student.builder()
+                .studentID("S019")
+                .name("Peter")
+                .surname("Pan")
+                .department("Engineering")
+                .build());
+        student.setAdvisor(advisor1);
+        advisor1.getStudentList().add(student);
 
+        student = studentRepository.save(Student.builder()
+                .studentID("S020")
+                .name("Ella")
+                .surname("Robinson")
+                .department("Mathematics")
+                .build());
+        student.setAdvisor(advisor2);
+        advisor2.getStudentList().add(student);
 
+        student = studentRepository.save(Student.builder()
+                .studentID("S021")
+                .name("Olaf")
+                .surname("Leonard")
+                .department("Music")
+                .build());
+        student.setAdvisor(advisor3);
+        advisor3.getStudentList().add(student);
+
+        student = studentRepository.save(Student.builder()
+                .studentID("S022")
+                .name("Tinkle")
+                .surname("Bell")
+                .department("Physics")
+                .build());
+        student.setAdvisor(advisor4);
+        advisor4.getStudentList().add(student);
+
+        student = studentRepository.save(Student.builder()
+                .studentID("S023")
+                .name("Tiger")
+                .surname("Lily")
+                .department("History")
+                .build());
+        student.setAdvisor(advisor5);
+        advisor5.getStudentList().add(student);
+
+        student = studentRepository.save(Student.builder()
+                .studentID("S024")
+                .name("Buzz")
+                .surname("Ligthyear")
+                .department("Psychology")
+                .build());
+        student.setAdvisor(advisor6);
+        advisor6.getStudentList().add(student);
 
 
     }
