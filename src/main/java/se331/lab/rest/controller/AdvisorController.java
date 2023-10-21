@@ -9,11 +9,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import se331.lab.rest.entity.Advisor;
+import se331.lab.rest.entity.Student;
 import se331.lab.rest.service.AdvisorService;
 import se331.lab.rest.util.LabMapper;
 
 @Controller
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:8080")
 public class AdvisorController {
     final AdvisorService advisorService;
 
@@ -39,5 +41,30 @@ public class AdvisorController {
     public ResponseEntity<?> addAdvisor(@RequestBody Advisor advisor){
         Advisor output = advisorService.save(advisor);
         return ResponseEntity.ok(LabMapper.INSTANCE.getAdvisorDto(output));
+    }
+    @PutMapping("/advisors/{id}")
+    public ResponseEntity<?> updateAdvisor(@PathVariable("id") Long id, @RequestBody Advisor updateAdvisor) {
+        Advisor existingAdvisor = advisorService.getEvent(id);
+        if (existingAdvisor != null) {
+            if (updateAdvisor.getName() != null) {
+                existingAdvisor.setName(updateAdvisor.getName());
+            }
+            if (updateAdvisor.getSurname() != null) {
+                existingAdvisor.setSurname(updateAdvisor.getSurname());
+            }
+            if (updateAdvisor.getDepartment() != null) {
+                existingAdvisor.setDepartment(updateAdvisor.getDepartment());
+            }
+            if (updateAdvisor.getSurname() != null) {
+                existingAdvisor.setSurname(updateAdvisor.getSurname());
+            }
+            if (updateAdvisor.getPosition() != null) {
+                existingAdvisor.setPosition(updateAdvisor.getPosition());
+            }
+            Advisor output = advisorService.save(existingAdvisor);
+            return ResponseEntity.ok(LabMapper.INSTANCE.getAdvisorDto(output));
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The given id is not found");
+        }
     }
 }
