@@ -16,6 +16,7 @@ public class Advisor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Exclude
     Long id;
+    String advisorID;
     String name;
     String surname;
     String position;

@@ -21,6 +21,7 @@ public class AdvisorDTO {
     String surname;
     String position;
     List<String> image;
+    String advisorID;
     String department;
     List<OwnStudentDTO> studentList = new ArrayList<>();
 }

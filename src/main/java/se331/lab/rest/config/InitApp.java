@@ -27,18 +27,21 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .surname("Smith")
                 .department("English")
                 .position("Lecturer")
+                .advisorID("A001")
                 .build());
         advisor2 = advisorRepository.save(Advisor.builder()
                 .name("Ahmed")
                 .surname("Khan")
                 .department("Business Administration")
                 .position("Researcher")
+                .advisorID("A002")
                 .build());
         advisor3 = advisorRepository.save(Advisor.builder()
                 .name("Astor   ")
                 .surname("Hawk")
                 .department("Mathematics")
                 .position("Professor")
+                .advisorID("A003")
                 .build());
 
         advisor4 = advisorRepository.save(Advisor.builder()
@@ -46,6 +49,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .surname("Johnson")
                 .department("History")
                 .position("Associate Professor")
+                .advisorID("A004")
                 .build());
 
         advisor5 = advisorRepository.save(Advisor.builder()
@@ -53,12 +57,14 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .surname("Merton")
                 .department("Physics")
                 .position("Assistant Professor")
+                .advisorID("A005")
                 .build());
         advisor6 = advisorRepository.save(Advisor.builder()
                 .name("David")
                 .surname("Lee")
                 .department("Computer Science")
                 .position("Professor")
+                .advisorID("A006")
                 .build());
 
         Student student;
