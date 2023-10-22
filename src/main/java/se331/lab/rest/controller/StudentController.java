@@ -59,6 +59,9 @@ public class StudentController {
             if (updateStudent.getSurname() != null) {
                 existingStudent.setSurname(updateStudent.getSurname());
             }
+            if (updateStudent.getImage() != null) {
+                existingStudent.setImage(updateStudent.getImage());
+            }
             Student output = studentService.save(existingStudent);
             return ResponseEntity.ok(LabMapper.INSTANCE.getStudentDto(output));
         } else {
