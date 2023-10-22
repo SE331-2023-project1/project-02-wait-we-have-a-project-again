@@ -105,21 +105,20 @@ public class AuthenticationService {
                     request.getPassword()
             )
     );
-    User user = repository.findByUsername(request.getUsername())
-            .orElseThrow();
+    User user = repository.findByUsername(request.getUsername()).orElseThrow();
 
     String jwtToken = jwtService.generateToken(user);
     String refreshToken = jwtService.generateRefreshToken(user);
 //    revokeAllUserTokens(user);
     saveUserToken(user, jwtToken);
 
-    if (user.getRoles().equals("ROLE_STUDENT")) {
+    if (user.getRoles().contains(Role.ROLE_STUDENT))  {
       return AuthenticationResponse.builder()
               .accessToken(jwtToken)
               .refreshToken(refreshToken)
               .student(LabMapper.INSTANCE.getStudentAuthDTO(user.getStudent()))
               .build();
-    } else {
+    } else{
       return AuthenticationResponse.builder()
               .accessToken(jwtToken)
               .refreshToken(refreshToken)
