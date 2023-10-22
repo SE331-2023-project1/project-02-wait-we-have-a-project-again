@@ -4,12 +4,20 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import se331.lab.rest.entity.Advisor;
 import se331.lab.rest.entity.Student;
 import se331.lab.rest.repository.AdvisorRepository;
 import se331.lab.rest.repository.StudentRepository;
+import se331.lab.rest.security.user.Role;
+import se331.lab.rest.security.user.User;
+import se331.lab.rest.security.user.UserRepository;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -17,6 +25,8 @@ import java.util.List;
 public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     final AdvisorRepository advisorRepository;
     final StudentRepository studentRepository;
+    final UserRepository userRepository;
+
     @Override
     @Transactional
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent){
@@ -313,7 +323,22 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .build());
         student.setAdvisor(advisor6);
         advisor6.getStudentList().add(student);
+        addUser();
+    }
+    User user1;
+    private void addUser() {
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
+        user1 = User.builder()
+                .username("admin")
+                .password(encoder.encode("admin"))
+                .firstname("admin")
+                .lastname("admin")
+                .email("admin@admin.com")
+                .enabled(true)
+                .lastPasswordResetDate(Date.from(LocalDate.of(2021, 01, 01).atStartOfDay(ZoneId.systemDefault()).toInstant()))
+                .build();
 
-
+        user1.getRoles().add(Role.ROLE_ADMIN);
+        userRepository.save(user1);
     }
 }
