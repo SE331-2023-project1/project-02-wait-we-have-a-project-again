@@ -2,6 +2,7 @@ package se331.lab.rest.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import se331.lab.rest.security.user.User;
 
 import java.util.List;
 
@@ -18,12 +19,12 @@ public class Student {
     String studentID;
     String name;
     String surname;
-
     String department;
     //student ID, name, surname, profile image, and department.
     @ManyToOne
     Advisor advisor;
-
     @ElementCollection
     List<String> image;
+    @OneToOne
+    User user;
 }

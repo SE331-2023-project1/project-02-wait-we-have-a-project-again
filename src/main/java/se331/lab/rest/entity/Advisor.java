@@ -2,6 +2,7 @@ package se331.lab.rest.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import se331.lab.rest.security.user.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,5 +28,7 @@ public class Advisor {
     @OneToMany
     @Builder.Default
     List<Student> studentList = new ArrayList<>();
+    @OneToOne
+    User user;
 
 }

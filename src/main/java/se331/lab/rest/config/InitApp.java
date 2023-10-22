@@ -324,8 +324,10 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         student.setAdvisor(advisor6);
         advisor6.getStudentList().add(student);
         addUser();
+        advisor1.setUser(user1);
+        user1.setAdvisor(advisor1);
     }
-    User user1;
+    User user1,user2;
     private void addUser() {
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         user1 = User.builder()
@@ -337,8 +339,20 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .enabled(true)
                 .lastPasswordResetDate(Date.from(LocalDate.of(2021, 01, 01).atStartOfDay(ZoneId.systemDefault()).toInstant()))
                 .build();
+        user2 = User.builder()
+                .username("advisor")
+                .password(encoder.encode("advisor"))
+                .firstname("advisor")
+                .lastname("advisor")
+                .email("advisor@user.com")
+                .enabled(true)
+                .lastPasswordResetDate(Date.from(LocalDate.of(2021, 01, 01).atStartOfDay(ZoneId.systemDefault()).toInstant()))
+                .build();
 
         user1.getRoles().add(Role.ROLE_ADMIN);
         userRepository.save(user1);
+
+        user2.getRoles().add(Role.ROLE_ADVISOR);
+        userRepository.save(user2);
     }
 }

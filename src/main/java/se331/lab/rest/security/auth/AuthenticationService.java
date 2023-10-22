@@ -1,7 +1,6 @@
 package se331.lab.rest.security.auth;
 
 
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -11,6 +10,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import se331.lab.rest.entity.Advisor;
+import se331.lab.rest.entity.Student;
+import se331.lab.rest.repository.AdvisorRepository;
+import se331.lab.rest.repository.StudentRepository;
 import se331.lab.rest.security.config.JwtService;
 import se331.lab.rest.security.token.Token;
 import se331.lab.rest.security.token.TokenRepository;
@@ -18,6 +21,8 @@ import se331.lab.rest.security.token.TokenType;
 import se331.lab.rest.security.user.Role;
 import se331.lab.rest.security.user.User;
 import se331.lab.rest.security.user.UserRepository;
+import se331.lab.rest.util.LabMapper;
+
 
 import java.io.IOException;
 import java.util.List;
@@ -30,25 +35,59 @@ public class AuthenticationService {
   private final PasswordEncoder passwordEncoder;
   private final JwtService jwtService;
   private final AuthenticationManager authenticationManager;
+  private final AdvisorRepository advisorRepository;
+  private final StudentRepository studentRepository;
 
-  public AuthenticationResponse register(RegisterRequest request) {
+  public AuthenticationResponse registerStudent(RegisterRequest request) {
+    Student student = Student.builder().name(request.getUsername()).id(studentRepository.count()+1).studentID(request.getStudentId()).build();
     User user = User.builder()
+            .studentId(request.getStudentId())
             .firstname(request.getFirstname())
             .lastname(request.getLastname())
             .email(request.getEmail())
+            .username(request.getUsername())
+            .student(student)
             .password(passwordEncoder.encode(request.getPassword()))
-            .roles(List.of(Role.ROLE_DISTRIBUTOR))
+            .roles(List.of(Role.ROLE_STUDENT))
             .build();
+    studentRepository.save(student);
     var savedUser = repository.save(user);
+    student.setUser(user);
+    studentRepository.save(student);
     var jwtToken = jwtService.generateToken(user);
     var refreshToken = jwtService.generateRefreshToken(user);
     saveUserToken(savedUser, jwtToken);
     return AuthenticationResponse.builder()
-        .accessToken(jwtToken)
+            .accessToken(jwtToken)
             .refreshToken(refreshToken)
-        .build();
+            .student(LabMapper.INSTANCE.getStudentAuthDTO(user.getStudent()))
+            .build();
   }
 
+  public AuthenticationResponseAdvisor registerAdvisor(RegisterRequest request) {
+    Advisor advisor = Advisor.builder().name(request.getUsername()).id(advisorRepository.count()+1).build();
+    User user = User.builder()
+            .firstname(request.getFirstname())
+            .lastname(request.getLastname())
+            .email(request.getEmail())
+            .username(request.getUsername())
+            .advisor(advisor)
+            .password(passwordEncoder.encode(request.getPassword()))
+            .roles(List.of(Role.ROLE_ADVISOR))
+            .build();
+    advisorRepository.save(advisor);
+    var savedUser = repository.save(user);
+    advisor.setUser(user);
+    advisorRepository.save(advisor);
+    var jwtToken = jwtService.generateToken(user);
+    var refreshToken = jwtService.generateRefreshToken(user);
+    saveUserToken(savedUser, jwtToken);
+    return AuthenticationResponseAdvisor.builder()
+            .accessToken(jwtToken)
+            .refreshToken(refreshToken)
+            .advisor(LabMapper.INSTANCE.getAdvisorAuthDTO(user.getAdvisor()))
+            .build();
+  }
   public AuthenticationResponse authenticate(AuthenticationRequest request) {
     authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(
@@ -63,12 +102,21 @@ public class AuthenticationService {
     String refreshToken = jwtService.generateRefreshToken(user);
 //    revokeAllUserTokens(user);
     saveUserToken(user, jwtToken);
-    return AuthenticationResponse.builder()
-            .accessToken(jwtToken)
-            .refreshToken(refreshToken)
-            .build();
-  }
 
+    if (user.getRoles().equals("ROLE_STUDENT")) {
+      return AuthenticationResponse.builder()
+              .accessToken(jwtToken)
+              .refreshToken(refreshToken)
+              .student(LabMapper.INSTANCE.getStudentAuthDTO(user.getStudent()))
+              .build();
+    } else {
+      return AuthenticationResponse.builder()
+              .accessToken(jwtToken)
+              .refreshToken(refreshToken)
+              .advisor(LabMapper.INSTANCE.getAdvisorAuthDTO(user.getAdvisor()))
+              .build();
+    }
+  }
   private void saveUserToken(User user, String jwtToken) {
     Token token = Token.builder()
             .user(user)
@@ -110,7 +158,7 @@ public class AuthenticationService {
         String accessToken = jwtService.generateToken(user);
         revokeAllUserTokens(user);
         saveUserToken(user, accessToken);
-        AuthenticationResponse authResponse = AuthenticationResponse.builder()
+        AuthenticationResponseAdvisor authResponse = AuthenticationResponseAdvisor.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
                 .build();

@@ -3,6 +3,7 @@ package se331.lab.rest.security.config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -11,6 +12,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
+
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
@@ -30,8 +33,19 @@ public class SecurityConfiguration {
     http
             .csrf((crsf) -> crsf.disable())
             .authorizeHttpRequests((authorize) -> {
-                authorize.requestMatchers("/api/v1/auth/**").permitAll().
-              anyRequest().authenticated();
+                authorize.requestMatchers("/api/v1/auth/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/students").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/advisors").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/advisors/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/students/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/students/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/advisors/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/advisors").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/uploadImage").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/uploadFile").permitAll()
+
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .anyRequest().authenticated();
             })
 
             .sessionManagement((session) ->{
@@ -47,6 +61,7 @@ public class SecurityConfiguration {
               logout.logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext());
             })
     ;
+    http.cors(withDefaults());
 
     return http.build();
 
