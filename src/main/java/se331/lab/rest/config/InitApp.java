@@ -326,15 +326,17 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         addUser();
         advisor1.setUser(user1);
         user1.setAdvisor(advisor1);
+        student.setUser(user3);
+        user3.setStudent(student);
     }
-    User user1,user2;
+    User user1,user2,user3;
     private void addUser() {
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         user1 = User.builder()
                 .username("admin")
                 .password(encoder.encode("admin"))
-                .firstname("admin")
-                .lastname("admin")
+                .name("admin")
+                .surname("admin")
                 .email("admin@admin.com")
                 .enabled(true)
                 .lastPasswordResetDate(Date.from(LocalDate.of(2021, 01, 01).atStartOfDay(ZoneId.systemDefault()).toInstant()))
@@ -342,9 +344,18 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         user2 = User.builder()
                 .username("advisor")
                 .password(encoder.encode("advisor"))
-                .firstname("advisor")
-                .lastname("advisor")
+                .name("advisor")
+                .surname("advisor")
                 .email("advisor@user.com")
+                .enabled(true)
+                .lastPasswordResetDate(Date.from(LocalDate.of(2021, 01, 01).atStartOfDay(ZoneId.systemDefault()).toInstant()))
+                .build();
+        user3 = User.builder()
+                .username("student")
+                .password(encoder.encode("student"))
+                .name("student")
+                .surname("student")
+                .email("student@user.com")
                 .enabled(true)
                 .lastPasswordResetDate(Date.from(LocalDate.of(2021, 01, 01).atStartOfDay(ZoneId.systemDefault()).toInstant()))
                 .build();
@@ -354,5 +365,8 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
 
         user2.getRoles().add(Role.ROLE_ADVISOR);
         userRepository.save(user2);
+
+        user3.getRoles().add(Role.ROLE_STUDENT);
+        userRepository.save(user3);
     }
 }

@@ -41,13 +41,13 @@ public class AuthenticationService {
   public AuthenticationResponse registerStudent(RegisterRequest request) {
     Student student = Student.builder()
             .studentID(request.getUsername()) // Map StudentID from request to studentID in Student table
-            .name(request.getFirstname())
-            .surname(request.getLastname())
+            .name(request.getName())
+            .surname(request.getSurname())
             .id(studentRepository.count() + 1)
             .build();
     User user = User.builder()
-            .firstname(request.getFirstname())
-            .lastname(request.getLastname())
+            .name(request.getName())
+            .surname(request.getSurname())
             .email(request.getEmail())
             .username(request.getUsername())
             .student(student)
@@ -72,13 +72,13 @@ public class AuthenticationService {
     Advisor advisor = Advisor
             .builder()
             .advisorID(request.getAdvisorID()) // Map advisorID from request to advisorID in Advisor table
-            .name(request.getFirstname())
-            .surname(request.getLastname())
+            .name(request.getName())
+            .surname(request.getSurname())
             .id(advisorRepository.count() + 1)
             .build();
     User user = User.builder()
-            .firstname(request.getFirstname())
-            .lastname(request.getLastname())
+            .name(request.getName())
+            .surname(request.getSurname())
             .email(request.getEmail())
             .username(request.getUsername())
             .advisor(advisor)
