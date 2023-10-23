@@ -19,7 +19,8 @@ public class Project331Application {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://54.91.55.126/:8100/")
+
+                        .allowedOrigins("http://34.230.89.31/:8100/")
                         .allowedOrigins("*")
                         .exposedHeaders("x-total-count");
             }
