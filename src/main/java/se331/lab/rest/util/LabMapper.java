@@ -5,6 +5,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 import se331.lab.rest.dto.*;
 import se331.lab.rest.entity.Advisor;
+import se331.lab.rest.entity.Announcement;
 import se331.lab.rest.entity.Student;
 
 import java.util.List;
@@ -23,6 +24,8 @@ public interface LabMapper {
     AdvisorAuthDTO getAdvisorAuthDTO(Advisor advisor);
     @Mapping(target ="roles",source = "user.roles")
     StudentAuthDTO getStudentAuthDTO(Student student);
+    AnnouncementDTO getAnnouncementDTO(Announcement announcement);
+    Announcement fromAnnouncementDTO(AnnouncementDTO announcementDTO);
 
 
 }

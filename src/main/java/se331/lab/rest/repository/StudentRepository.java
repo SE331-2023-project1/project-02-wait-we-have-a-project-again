@@ -9,7 +9,6 @@ import java.util.List;
 
 public interface StudentRepository extends JpaRepository<Student,Long> {
     List<Student> findAll();
-
     Page<Student> findByNameContainingIgnoreCaseOrSurnameContainingIgnoreCaseOrStudentID
             (String name, String surName, String studentID, Pageable PageRequest);
 }
