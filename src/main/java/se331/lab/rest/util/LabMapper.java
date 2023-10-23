@@ -19,6 +19,7 @@ public interface LabMapper {
     OwnsAdvisorDTO getAdvisorForStudent(Advisor advisor);
     OwnStudentDTO getStudentForAdvisor(Student student);
     @Mapping(target ="roles",source = "user.roles")
+    @Mapping(target = "studentList", source = "advisor.studentList")
     AdvisorAuthDTO getAdvisorAuthDTO(Advisor advisor);
     @Mapping(target ="roles",source = "user.roles")
     StudentAuthDTO getStudentAuthDTO(Student student);

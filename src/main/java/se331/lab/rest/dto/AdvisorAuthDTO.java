@@ -17,5 +17,11 @@ import java.util.List;
 public class AdvisorAuthDTO {
     Long id;
     String name;
+    String surname;
+    String position;
+    List<String> image;
+    String advisorID;
+    String department;
+    List<OwnStudentDTO> studentList = new ArrayList<>();
     List<Role> roles = new ArrayList<>();
 }

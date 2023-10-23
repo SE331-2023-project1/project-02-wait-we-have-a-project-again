@@ -324,12 +324,20 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         student.setAdvisor(advisor6);
         advisor6.getStudentList().add(student);
         addUser();
+        //admin
         advisor1.setUser(user1);
         user1.setAdvisor(advisor1);
+        //advisor
+        advisor2.setUser(user2);
+        user2.setAdvisor(advisor2);
+        //student
         student.setUser(user3);
         user3.setStudent(student);
+        //advisor
+        user5.setAdvisor(advisor3);
+        advisor3.setUser(user5);
     }
-    User user1,user2,user3;
+    User user1,user2,user3,user4,user5;
     private void addUser() {
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         user1 = User.builder()
@@ -359,6 +367,18 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .enabled(true)
                 .lastPasswordResetDate(Date.from(LocalDate.of(2021, 01, 01).atStartOfDay(ZoneId.systemDefault()).toInstant()))
                 .build();
+        user4 = User.builder()
+                .username("student1")
+                .password(encoder.encode("student1"))
+                .enabled(true)
+                .lastPasswordResetDate(Date.from(LocalDate.of(2021, 01, 01).atStartOfDay(ZoneId.systemDefault()).toInstant()))
+                .build();
+        user5 = User.builder()
+                .username("advisor1")
+                .password(encoder.encode("advisor1"))
+                .enabled(true)
+                .lastPasswordResetDate(Date.from(LocalDate.of(2021, 01, 01).atStartOfDay(ZoneId.systemDefault()).toInstant()))
+                .build();
 
         user1.getRoles().add(Role.ROLE_ADMIN);
         userRepository.save(user1);
@@ -368,5 +388,11 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
 
         user3.getRoles().add(Role.ROLE_STUDENT);
         userRepository.save(user3);
+
+        user4.getRoles().add(Role.ROLE_STUDENT);
+        userRepository.save(user4);
+
+        user5.getRoles().add(Role.ROLE_ADVISOR);
+        userRepository.save(user5);
     }
 }
