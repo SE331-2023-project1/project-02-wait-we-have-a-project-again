@@ -14,6 +14,7 @@ public class Announcement {
     @EqualsAndHashCode.Exclude
     Long id;
     String title;
+    String content;
     @ManyToOne
     Advisor advisor;
 

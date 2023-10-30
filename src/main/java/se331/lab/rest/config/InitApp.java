@@ -47,6 +47,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .position("Researcher")
                 .advisorID("A002")
                 .image(List.of("https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=600"))
+                .announcements(List.of("https://storage.googleapis.com/download/storage/v1/b/projectstorage-165a3.appspot.com/o/2023-10-29%20233234164-953321_721.pdf?generation=1698597162648926&alt=media"))
                 .build());
         advisor3 = advisorRepository.save(Advisor.builder()
                 .name("Astor   ")
