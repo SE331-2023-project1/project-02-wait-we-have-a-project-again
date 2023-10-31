@@ -20,6 +20,8 @@ public class Project331Application {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
                         .allowedOrigins("*")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE")
+                        .allowedHeaders("*")
                         .exposedHeaders("x-total-count");
             }
         };

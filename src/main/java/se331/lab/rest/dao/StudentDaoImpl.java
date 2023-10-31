@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
+import se331.lab.rest.entity.Advisor;
 import se331.lab.rest.entity.Student;
 import se331.lab.rest.repository.StudentRepository;
 
@@ -39,5 +40,9 @@ public class StudentDaoImpl implements StudentDao{
     public Page<Student> getStudent(String name, Pageable page) {
         return studentRepository.findByNameContainingIgnoreCaseOrSurnameContainingIgnoreCaseOrStudentID
                 (name, name, name, page);
+    }
+    @Override
+    public Page<Student> getAdvisor(Pageable pageRequest){
+        return studentRepository.findAll(pageRequest);
     }
 }

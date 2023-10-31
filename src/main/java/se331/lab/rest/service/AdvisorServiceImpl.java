@@ -15,7 +15,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdvisorServiceImpl implements AdvisorService {
     final AdvisorDao advisorDao;
-
+    @Override
+    public List<Advisor> getAllAdvisor(){
+        return advisorDao.getAdvisor(Pageable.unpaged()).getContent();
+    }
     @Override
     public Page<Advisor> getAdvisors(Integer pageSize, Integer page){
         return advisorDao.getAdvisors(pageSize,page);

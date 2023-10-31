@@ -38,10 +38,13 @@ public class AdvisorDaoImpl implements AdvisorDao{
     public Optional<Advisor> findById(Long id){
         return advisorRepository.findById(id);
     }
-
     @Override
     public Page<Advisor> getAdvisor(String name, Pageable page){
         return advisorRepository.findByNameContainingIgnoreCaseOrAdvisorID(name, name ,page);
+    }
+    @Override
+    public Page<Advisor> getAdvisor(Pageable pageRequest){
+        return advisorRepository.findAll(pageRequest);
     }
 
 }

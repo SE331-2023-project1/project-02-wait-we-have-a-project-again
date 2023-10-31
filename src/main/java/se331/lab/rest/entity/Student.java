@@ -27,4 +27,13 @@ public class Student {
     List<String> image;
     @OneToOne
     User user;
+
+    public Student(String studentID, String name, String surname, String department) {
+        this.studentID = studentID;
+        this.name = name;
+        this.surname = surname;
+        this.department = department;
+        this.advisor = new Advisor();
+    }
+
 }
