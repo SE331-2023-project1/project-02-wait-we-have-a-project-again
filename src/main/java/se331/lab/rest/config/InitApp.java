@@ -8,8 +8,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import se331.lab.rest.entity.Advisor;
+import se331.lab.rest.entity.Comment;
+import se331.lab.rest.entity.HistoryComment;
 import se331.lab.rest.entity.Student;
 import se331.lab.rest.repository.AdvisorRepository;
+import se331.lab.rest.repository.CommentRepository;
+import se331.lab.rest.repository.HistoryCommentRepository;
 import se331.lab.rest.repository.StudentRepository;
 import se331.lab.rest.security.user.Role;
 import se331.lab.rest.security.user.User;
@@ -26,11 +30,16 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     final AdvisorRepository advisorRepository;
     final StudentRepository studentRepository;
     final UserRepository userRepository;
+    final HistoryCommentRepository historyCommentRepository;
+    final CommentRepository commentRepository;
 
     @Override
     @Transactional
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent){
+
         Advisor advisor1,advisor2,advisor3,advisor4,advisor5,advisor6;
+        HistoryComment hist1;
+        Comment c1, c2, c3;
         advisor1 = advisorRepository.save(Advisor
                 .builder()
                 .name("Somsak")
@@ -340,6 +349,29 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
 
         student1.setUser(user4);
         user4.setStudent(student1);
+
+        hist1 = historyCommentRepository.save(HistoryComment.builder()
+                .studentId(student1.getId())
+                .advisorId(advisor2.getId())
+                .build());
+        c1 = commentRepository.save(Comment.builder()
+                .text("Hello World")
+                .sentByAdvisor(true)
+                .build());
+        c1.setHistory(hist1);
+        hist1.getCommentHistory().add(c1);
+        c2 = commentRepository.save(Comment.builder()
+                .text("Hello Prof")
+                .sentByAdvisor(false)
+                .build());
+        c2.setHistory(hist1);
+        hist1.getCommentHistory().add(c2);
+        c3 = commentRepository.save(Comment.builder()
+                .text("Don't do that")
+                .sentByAdvisor(true)
+                .build());
+        c3.setHistory(hist1);
+        hist1.getCommentHistory().add(c3);
 
 
     }
