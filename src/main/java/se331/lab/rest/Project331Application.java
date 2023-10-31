@@ -20,7 +20,7 @@ public class Project331Application {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
 
-                        .allowedOrigins("http://100.25.180.212:8100/")
+                        .allowedOrigins("")
                         .allowedOrigins("*")
                         .exposedHeaders("x-total-count");
             }
