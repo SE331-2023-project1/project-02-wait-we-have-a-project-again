@@ -70,6 +70,9 @@ public class AdvisorController {
             if (updateAdvisor.getPosition() != null) {
                 existingAdvisor.setPosition(updateAdvisor.getPosition());
             }
+            if (updateAdvisor.getAnnouncements() != null) {
+                existingAdvisor.setAnnouncements(updateAdvisor.getAnnouncements());
+            }
             Advisor output = advisorService.save(existingAdvisor);
             return ResponseEntity.ok(LabMapper.INSTANCE.getAdvisorDto(output));
         } else {

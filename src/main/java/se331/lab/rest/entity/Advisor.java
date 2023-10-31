@@ -30,5 +30,7 @@ public class Advisor {
     List<Student> studentList = new ArrayList<>();
     @OneToOne
     User user;
+    @ElementCollection
+    List<String> announcements;
 
 }

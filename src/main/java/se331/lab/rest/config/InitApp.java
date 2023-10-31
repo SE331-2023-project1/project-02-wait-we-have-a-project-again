@@ -47,6 +47,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .position("Researcher")
                 .advisorID("A002")
                 .image(List.of("https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=600"))
+                .announcements(List.of("https://miro.medium.com/v2/resize:fit:900/1*v4RzJC1ufpxcQWOOhBitPA.jpeg","https://storage.googleapis.com/download/storage/v1/b/projectstorage-165a3.appspot.com/o/2023-10-29%20233234164-953321_721.pdf?generation=1698597162648926&alt=media"))
                 .build());
         advisor3 = advisorRepository.save(Advisor.builder()
                 .name("Astor   ")
@@ -83,7 +84,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .image(List.of("https://images.pexels.com/photos/1752126/pexels-photo-1752126.jpeg?auto=compress&cs=tinysrgb&w=600"))
                 .build());
 
-        Student student;
+        Student student,student1,student2;
         student = studentRepository.save(Student.builder()
                 .studentID("S001")
                 .name("Daisy")
@@ -94,25 +95,25 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         student.setAdvisor(advisor1);
         advisor1.getStudentList().add(student);
 
-        student = studentRepository.save(Student.builder()
+        student1 = studentRepository.save(Student.builder()
                 .studentID("S002")
                 .name("Jerry")
                 .surname("Perry")
                 .department("Mathematics")
                 .image(List.of("https://images.pexels.com/photos/997472/pexels-photo-997472.jpeg?auto=compress&cs=tinysrgb&w=600"))
                 .build());
-        student.setAdvisor(advisor1);
-        advisor1.getStudentList().add(student);
+        student1.setAdvisor(advisor2);
+        advisor2.getStudentList().add(student1);
 
-        student = studentRepository.save(Student.builder()
+        student2 = studentRepository.save(Student.builder()
                 .studentID("S003")
                 .name("May")
                 .surname("Gates")
                 .department("Physics")
                 .image(List.of("https://images.pexels.com/photos/18618357/pexels-photo-18618357.jpeg?auto=compress&cs=tinysrgb&w=600"))
                 .build());
-        student.setAdvisor(advisor2);
-        advisor2.getStudentList().add(student);
+        student2.setAdvisor(advisor5);
+        advisor5.getStudentList().add(student2);
 
         student = studentRepository.save(Student.builder()
                 .studentID("S004")
@@ -211,8 +212,8 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .department("Social")
                 .image(List.of("https://images.pexels.com/photos/1486064/pexels-photo-1486064.jpeg?auto=compress&cs=tinysrgb&w=600"))
                 .build());
-        student.setAdvisor(advisor1);
-        advisor1.getStudentList().add(student);
+        student.setAdvisor(advisor2);
+        advisor2.getStudentList().add(student);
 
         student = studentRepository.save(Student.builder()
                 .studentID("S014")
@@ -271,8 +272,8 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .department("Engineering")
                 .image(List.of("https://images.pexels.com/photos/18659930/pexels-photo-18659930.jpeg?auto=compress&cs=tinysrgb&w=600"))
                 .build());
-        student.setAdvisor(advisor1);
-        advisor1.getStudentList().add(student);
+        student.setAdvisor(advisor2);
+        advisor2.getStudentList().add(student);
 
         student = studentRepository.save(Student.builder()
                 .studentID("S020")
@@ -336,6 +337,11 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         //advisor
         user5.setAdvisor(advisor3);
         advisor3.setUser(user5);
+
+        student1.setUser(user4);
+        user4.setStudent(student1);
+
+
     }
     User user1,user2,user3,user4,user5;
     private void addUser() {
@@ -379,6 +385,8 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .enabled(true)
                 .lastPasswordResetDate(Date.from(LocalDate.of(2021, 01, 01).atStartOfDay(ZoneId.systemDefault()).toInstant()))
                 .build();
+
+
 
         user1.getRoles().add(Role.ROLE_ADMIN);
         userRepository.save(user1);

@@ -12,6 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 import se331.lab.rest.dto.StudentDTO;
 import se331.lab.rest.entity.Advisor;
 import se331.lab.rest.entity.Student;
+import se331.lab.rest.service.AdvisorService;
 import se331.lab.rest.service.StudentService;
 import se331.lab.rest.util.LabMapper;
 
@@ -23,7 +24,7 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:8080")
 public class StudentController {
     final StudentService studentService;
-
+    final AdvisorService advisorService;
     @GetMapping("students")
     public ResponseEntity<?> getAdvisorLists(@RequestParam(value = "_limit", required = false) Integer perPage,
                                              @RequestParam(value = "_page", required = false) Integer page,
@@ -62,12 +63,25 @@ public class StudentController {
             if (updateStudent.getImage() != null) {
                 existingStudent.setImage(updateStudent.getImage());
             }
+
+            // Set the updated Advisor for the existing Student
+            if (updateStudent.getAdvisor() != null) {
+                Advisor updatedAdvisor = advisorService.getAdvisorById(updateStudent.getAdvisor().getId());
+                if (updatedAdvisor != null) {
+                    existingStudent.setAdvisor(updatedAdvisor);
+                } else {
+                    throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Advisor with the given ID not found.");
+                }
+            }
+
             Student output = studentService.save(existingStudent);
             return ResponseEntity.ok(LabMapper.INSTANCE.getStudentDto(output));
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The given id is not found");
         }
     }
+
+
 
 
 

@@ -24,4 +24,5 @@ public class AdvisorDTO {
     String advisorID;
     String department;
     List<OwnStudentDTO> studentList = new ArrayList<>();
+    List<String> announcements;
 }

@@ -22,6 +22,8 @@ public class Project331Application {
 
                         .allowedOrigins("")
                         .allowedOrigins("*")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE")
+                        .allowedHeaders("*")
                         .exposedHeaders("x-total-count");
             }
         };

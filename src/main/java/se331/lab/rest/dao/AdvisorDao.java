@@ -10,11 +10,9 @@ import java.util.Optional;
 public interface AdvisorDao {
     Integer getAdvisorSize();
     Page<Advisor> getAdvisors(Integer pageSize, Integer page);
-
     Advisor getAdvisorById(Long id);
-
     Advisor save(Advisor advisor);
     Optional<Advisor> findById(Long id);
-
     Page<Advisor> getAdvisor(String name, Pageable page);
+    Page<Advisor> getAdvisor(Pageable pageRequest);
 }
