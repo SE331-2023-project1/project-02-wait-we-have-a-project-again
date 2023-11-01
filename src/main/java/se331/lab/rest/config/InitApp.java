@@ -93,16 +93,17 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .image(List.of("https://images.pexels.com/photos/1752126/pexels-photo-1752126.jpeg?auto=compress&cs=tinysrgb&w=600"))
                 .build());
 
-        Student student,student1,student2;
-        student = studentRepository.save(Student.builder()
+        Student student,student1,student2,student3;
+        student3 = studentRepository.save(Student.builder()
                 .studentID("S001")
                 .name("Daisy")
                 .surname("Walsh")
                 .department("Computer Science")
                 .image(List.of("https://images.pexels.com/photos/18678398/pexels-photo-18678398.jpeg?auto=compress&cs=tinysrgb&w=600"))
                 .build());
-        student.setAdvisor(advisor1);
-        advisor1.getStudentList().add(student);
+        student3.setAdvisor(advisor1);
+        advisor1.getStudentList().add(student3);
+
 
         student1 = studentRepository.save(Student.builder()
                 .studentID("S002")
@@ -266,73 +267,13 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
 
         student = studentRepository.save(Student.builder()
                 .studentID("S018")
-                .name("Mickey")
-                .surname("Mouse")
-                .department("Biology")
-                .image(List.of("https://images.pexels.com/photos/3214772/pexels-photo-3214772.jpeg?auto=compress&cs=tinysrgb&w=600"))
-                .build());
-        student.setAdvisor(advisor6);
-        advisor6.getStudentList().add(student);
-
-        student = studentRepository.save(Student.builder()
-                .studentID("S019")
-                .name("Peter")
-                .surname("Pan")
-                .department("Engineering")
-                .image(List.of("https://images.pexels.com/photos/18659930/pexels-photo-18659930.jpeg?auto=compress&cs=tinysrgb&w=600"))
-                .build());
-        student.setAdvisor(advisor2);
-        advisor2.getStudentList().add(student);
-
-        student = studentRepository.save(Student.builder()
-                .studentID("S020")
-                .name("Ella")
-                .surname("Robinson")
-                .department("Mathematics")
-                .image(List.of("https://images.pexels.com/photos/18663177/pexels-photo-18663177.jpeg?auto=compress&cs=tinysrgb&w=600"))
-                .build());
-        student.setAdvisor(advisor2);
-        advisor2.getStudentList().add(student);
-
-        student = studentRepository.save(Student.builder()
-                .studentID("S021")
-                .name("Olaf")
-                .surname("Leonard")
-                .department("Music")
-                .image(List.of("https://images.pexels.com/photos/1040881/pexels-photo-1040881.jpeg?auto=compress&cs=tinysrgb&w=600"))
-                .build());
-        student.setAdvisor(advisor3);
-        advisor3.getStudentList().add(student);
-
-        student = studentRepository.save(Student.builder()
-                .studentID("S022")
-                .name("Tinkle")
-                .surname("Bell")
-                .department("Physics")
-                .image(List.of("https://images.pexels.com/photos/18660742/pexels-photo-18660742.jpeg?auto=compress&cs=tinysrgb&w=600"))
-                .build());
-        student.setAdvisor(advisor4);
-        advisor4.getStudentList().add(student);
-
-        student = studentRepository.save(Student.builder()
-                .studentID("S023")
-                .name("Tiger")
-                .surname("Lily")
-                .department("History")
-                .image(List.of("https://images.pexels.com/photos/18652727/pexels-photo-18652727.jpeg?auto=compress&cs=tinysrgb&w=600"))
-                .build());
-        student.setAdvisor(advisor5);
-        advisor5.getStudentList().add(student);
-
-        student = studentRepository.save(Student.builder()
-                .studentID("S024")
                 .name("Buzz")
                 .surname("Ligthyear")
                 .department("Psychology")
                 .image(List.of("https://images.pexels.com/photos/18649280/pexels-photo-18649280.jpeg?auto=compress&cs=tinysrgb&w=600"))
                 .build());
-        student.setAdvisor(advisor6);
-        advisor6.getStudentList().add(student);
+        student.setAdvisor(advisor3);
+        advisor3.getStudentList().add(student);
         addUser();
         //admin
         advisor1.setUser(user1);
@@ -349,6 +290,9 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
 
         student1.setUser(user4);
         user4.setStudent(student1);
+
+        student3.setUser(user6);
+        user6.setStudent(student3);
 
         hist1 = historyCommentRepository.save(HistoryComment.builder()
                 .studentId(student1.getId())
@@ -375,7 +319,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
 
 
     }
-    User user1,user2,user3,user4,user5;
+    User user1,user2,user3,user4,user5,user6;
     private void addUser() {
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         user1 = User.builder()
@@ -417,6 +361,12 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .enabled(true)
                 .lastPasswordResetDate(Date.from(LocalDate.of(2021, 01, 01).atStartOfDay(ZoneId.systemDefault()).toInstant()))
                 .build();
+        user6 = User.builder()
+                .username("student3")
+                .password(encoder.encode("student3"))
+                .enabled(true)
+                .lastPasswordResetDate(Date.from(LocalDate.of(2021, 01, 01).atStartOfDay(ZoneId.systemDefault()).toInstant()))
+                .build();
 
 
 
@@ -434,5 +384,8 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
 
         user5.getRoles().add(Role.ROLE_ADVISOR);
         userRepository.save(user5);
+
+        user6.getRoles().add(Role.ROLE_STUDENT);
+        userRepository.save(user6);
     }
 }
