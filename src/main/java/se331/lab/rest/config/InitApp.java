@@ -101,8 +101,8 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .department("Computer Science")
                 .image(List.of("https://images.pexels.com/photos/18678398/pexels-photo-18678398.jpeg?auto=compress&cs=tinysrgb&w=600"))
                 .build());
-        student3.setAdvisor(advisor1);
-        advisor1.getStudentList().add(student3);
+        student3.setAdvisor(advisor2);
+        advisor2.getStudentList().add(student3);
 
 
         student1 = studentRepository.save(Student.builder()
