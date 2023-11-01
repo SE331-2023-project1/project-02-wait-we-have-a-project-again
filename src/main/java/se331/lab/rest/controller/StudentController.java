@@ -17,6 +17,7 @@ import se331.lab.rest.service.StudentService;
 import se331.lab.rest.util.LabMapper;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -53,6 +54,7 @@ public class StudentController {
     @PutMapping("/students/{id}")
     public ResponseEntity<?> updateStudent(@PathVariable("id") Long id, @RequestBody Student updateStudent) {
         Student existingStudent = studentService.getStudentById(id);
+
         if (existingStudent != null) {
             if (updateStudent.getName() != null) {
                 existingStudent.setName(updateStudent.getName());
@@ -64,14 +66,25 @@ public class StudentController {
                 existingStudent.setImage(updateStudent.getImage());
             }
 
-            // Set the updated Advisor for the existing Student
+            // Check if the Student has an updated Advisor
             if (updateStudent.getAdvisor() != null) {
                 Advisor updatedAdvisor = advisorService.getAdvisorById(updateStudent.getAdvisor().getId());
+
                 if (updatedAdvisor != null) {
+                    // Remove the Student from the existing Advisor's list
+                    if (existingStudent.getAdvisor() != null) {
+                        existingStudent.getAdvisor().getStudentList().remove(existingStudent);
+                    }
+
+                    // Update the Advisor for the Student
                     existingStudent.setAdvisor(updatedAdvisor);
+                    updatedAdvisor.getStudentList().add(existingStudent);
                 } else {
                     throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Advisor with the given ID not found.");
                 }
+            } else {
+                // If no Advisor is provided, clear the Advisor for the Student
+                existingStudent.setAdvisor(null);
             }
 
             Student output = studentService.save(existingStudent);
@@ -81,8 +94,7 @@ public class StudentController {
         }
     }
 
-
-
-
-
 }
+
+
+

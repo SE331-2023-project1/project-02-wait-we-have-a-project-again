@@ -34,24 +34,17 @@ public class StudentServiceImpl implements StudentService {
     @Transactional
     public Student save(Student student) {
         if (student.getId() == null) {
-            // If the student's ID is null, it's a new student, so you can create it.
             Advisor advisor = student.getAdvisor();
             if (advisor != null) {
-                // Check if the student is not already associated with the advisor
                 if (!advisor.getStudentList().contains(student)) {
                     student.setAdvisor(advisor);
                     advisor.getStudentList().add(student);
                 }
-                // Continue with the save logic
                 return studentDao.save(student);
             } else {
                 throw new RuntimeException("Advisor not found.");
             }
         } else {
-            // If the student's ID is not null, it's an update operation.
-            // Perform any update logic you need here.
-            // For example, update other attributes of the student.
-            // Then, save the updated student entity.
             return studentDao.save(student);
         }
     }
